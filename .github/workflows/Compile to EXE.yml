@@ -1,0 +1,15 @@
+name: Compile PowerCMDShell To EXE
+on:
+ push:
+ 
+jobs:
+ build:
+    runs-on: windows-latest
+    steps:
+     - uses: actions/checkout@v2
+     - name: Create report file
+       run: date +%s > report.txt
+       
+     - name: Compile using BAT To EXE
+       run: ./bin/Bat_To_Exe.exe /bat ./bin/PowerCMDShell_Advanced.bat /exe ./build/PowerCMDShell_Advanced.exe /icon ./bin/img/PowerCMDShell.ico /x64 /uac-user /fileversion latest /productversion latest /productname PowerCMDShell Advanced /originalfilename PowerCMDShell_Advanced.exe /internalname PowerCMDShell /description PowerShell In The Windows Command Prompt! /company FreakinSoftMania /copyright © FreakinSoftMania /privatebuild latest /specialbuild latest
+       shell: cmd
