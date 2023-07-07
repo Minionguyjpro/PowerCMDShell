@@ -1,0 +1,21 @@
+name: Compile PowerCMDShell to EXE
+on:
+ push:
+ 
+jobs:
+ build:
+    runs-on: windows-latest
+    steps:
+     - uses: actions/checkout@v2
+     - name: Create report file
+       run: date +%s > report.txt
+       
+     - name: Compile using BAT To EXE
+       run: '"%GITHUB_WORKSPACE%\bin\Bat_To_Exe.exe" /bat "%GITHUB_WORKSPACE%\bin\PowerCMDShell_Advanced.bat" /exe "%GITHUB_WORKSPACE%\build\PowerCMDShell_Advanced.exe" /icon "%GITHUB_WORKSPACE%\bin\img\PowerCMDShell.ico" /x64 /uac-user /fileversion latest /productversion latest /productname "PowerCMDShell Advanced" /originalfilename "PowerCMDShell_Advanced.exe" /internalname "PowerCMDShell" /description "PowerShell in the Windows command prompt!" /company "FreakinSoftMania" /copyright "© 2023 FreakinSoftMania" /privatebuild "latest" /specialbuild "latest"'
+       shell: cmd
+
+     - name: Upload artifact
+       uses: actions/upload-artifact@v3
+       with:
+         name: PowerCMDShell
+         path: build/*.exe
